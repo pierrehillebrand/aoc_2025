@@ -66,7 +66,6 @@ int	main(int ac, char *av[])
 		i += j + 1;
 		// printf("%s-%s\n", start_char, end_char);
 	}
-	// printf("%d\n", 99 / 10);
 	fclose(input);
 	printf("%ld\n", total);
 }
