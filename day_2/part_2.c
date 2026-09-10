@@ -50,18 +50,35 @@ int	main(int ac, char *av[])
 				digit += 1;
 				temp /= 10;
 			}
-			temp = start;
-			start += 1;
-			if (digit % 2)
-				continue;
-			int divider = 1;
-			for (int i = 0; i < digit / 2; i++)
-				divider *= 10;
-			if (temp / divider == temp % divider)
+			for (int group_size = 1; group_size <= digit / 2; group_size++)
 			{
-				total += temp;
-				printf("%ld\n", temp);
+				temp = start;
+				if (digit % group_size)
+					continue;
+				int	divider = 1;
+				for (int i = 0; i < group_size; i++)
+					divider *= 10;
+				long	first_part = temp % divider;
+				temp /= divider;
+				for (int x = 1; x < digit / group_size; x++)
+				{
+					
+					long next_part = temp % divider;
+					temp /= divider;
+					if (first_part != next_part)
+					{
+						temp = -1;
+						break;
+					}
+				}
+				if (temp == 0)
+				{
+					printf("%ld\n", start);
+					total += start;
+					break;
+				}
 			}
+			start += 1;
 		}
 		i += j + 1;
 		// printf("%s-%s\n", start_char, end_char);
